@@ -3,16 +3,16 @@ import "./Style.css";
 import axios from "axios";
 
 function App() {
-  // Single Todo
+  // 1 Todo
   const [todo, setTodo] = useState("");
-  // All Todos
+  // List of Todos
   const [todos, setTodos] = useState([]);
   // Edit Mode
   const [editId, setEditId] = useState(0);
 
   const apiEndPoint = "https://63ad0ea934c46cd7ae8f6df2.mockapi.io/todo/";
 
-  // GET with axios
+  // GET
   useEffect(() => {
     const getTodos = async () => {
       const res = await axios.get(apiEndPoint);
@@ -21,17 +21,7 @@ function App() {
     getTodos();
   }, []);
 
-  // DELETE with axios
-  const deleteTodo = async (id) => {
-    await axios.delete(`${apiEndPoint}${id}`);
-    setTodos(
-      todos.filter((to) => {
-        return to.id !== id;
-      })
-    );
-  };
-
-  // POST with Axios
+  // POST
   const addTodo = async (todo) => {
     let res = await axios.post(apiEndPoint, {
       todo: todo
@@ -42,7 +32,19 @@ function App() {
     setTodo("");
   };
 
-  // PUT with axios
+  // DEL
+  const deleteTodo = async (id) => {
+    await axios.delete(`${apiEndPoint}${id}`);
+    setTodos(
+      todos.filter((to) => {
+        return to.id !== id;
+      })
+    );
+  };
+
+  
+
+  // PUT
   const editTodoApi = async (editId) => {
     await axios.put(`${apiEndPoint}${editId}`, {
       todo: todo
